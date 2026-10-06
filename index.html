@@ -1,335 +1,613 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elite English | المستوى الأول</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
-        }
+Build a complete professional interactive English-learning website called:
 
-        body {
-            background-color: #07090e;
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+"English Start | ابدأ الإنجليزية"
 
-        .main-card {
-            background: #064e3b;
-            border: 3px solid #e2b714;
-            border-radius: 28px;
-            width: 100%;
-            max-width: 900px;
-            padding: 40px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
-            text-align: center;
-        }
+IMPORTANT:
+Do not create a basic simple landing page.
+Build a polished, modern, interactive educational web app.
 
-        h1 {
-            color: #e2b714;
-            font-size: 2.2rem;
-            font-weight: 900;
-            margin-bottom: 10px;
-        }
+The website must be fully responsive and work on:
+- iPhone
+- Android
+- Tablet
+- Desktop
 
-        p.subtitle {
-            color: #d1fae5;
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-        }
+TECHNOLOGY:
+- HTML5
+- CSS3
+- Vanilla JavaScript
+- No React
+- No backend
+- No database
+- No paid libraries
+- No external images required
+- Use CSS illustrations and simple SVG shapes where appropriate
 
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
+LANGUAGE:
+The interface should support Arabic and English.
+Default language: Arabic.
+The English learning content should be easy A1 level.
 
-        .option-box {
-            background: #ffffff;
-            color: #0f172a;
-            padding: 25px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-right: 8px solid #e2b714;
-            text-align: right;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
+DESIGN:
+Create an original design inspired by the visual style of the reference screenshots:
+- Dark educational green background
+- Light green decorative circles/shapes
+- White cards
+- Rounded corners
+- Modern Arabic typography
+- Friendly educational character/illustration
+- Large Arabic headings
+- Smooth animations
+- Professional educational appearance
+- Clean spacing
+- Mobile-first responsive layout
 
-        .option-box:hover {
-            transform: translateY(-5px);
-            background: #fffdf5;
-        }
+Do NOT copy any third-party image, logo, character, or copyrighted design.
+Create an original visual identity.
 
-        .option-box h3 {
-            font-size: 1.3rem;
-            font-weight: 900;
-            color: #0f172a;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+==================================================
+HOME PAGE
+==================================================
 
-        .option-box p {
-            color: #475569;
-            font-size: 1rem;
-        }
+Create a welcoming hero section.
 
-        /* قسم الألعاب والأرقام (1 إلى 16) */
-        .games-section, .video-section {
-            display: none;
-            margin-top: 20px;
-        }
+Main Arabic heading:
 
-        .numbers-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
-        }
+"أهلاً بك في عالم الإنجليزية"
 
-        .num-btn {
-            background: #043927;
-            border: 2px solid #e2b714;
-            color: #fff;
-            font-size: 1.8rem;
-            font-weight: 900;
-            padding: 20px;
-            border-radius: 14px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+Subheading:
 
-        .num-btn:hover {
-            background: #e2b714;
-            color: #07090e;
-        }
+"تعلم الإنجليزية بطريقة سهلة، تفاعلية، وممتعة"
 
-        /* حاوية الفيديو */
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            height: 0;
-            background: #000;
-            border-radius: 14px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
+English:
 
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+"Welcome to English Start"
 
-        .back-btn {
-            background: #e2b714;
-            color: #07090e;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-weight: 900;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+"Learn English step by step."
 
-        .back-btn:hover {
-            opacity: 0.9;
-        }
+Buttons:
 
-        /* نافذة لعبة السؤال والصور */
-        .game-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+"ابدأ التعلم"
+"Start Learning"
 
-        .game-content {
-            background: #064e3b;
-            border: 3px solid #e2b714;
-            padding: 30px;
-            border-radius: 24px;
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
-        }
+"خطة التعلم"
+"Learning Plan"
 
-        .game-content h2 {
-            color: #e2b714;
-            font-size: 1.6rem;
-            margin-bottom: 20px;
-        }
+Add a friendly educational illustration using CSS/SVG.
 
-        .game-options-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
+Add a small creator section:
 
-        .choice-btn {
-            background: #ffffff;
-            color: #0f172a;
-            border: none;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
-        }
+"صُنع بواسطة نواف عبدالله"
 
-        .choice-btn:hover {
-            background: #f1f5f9;
-            border: 2px solid #e2b714;
-        }
+"Designed & Developed by Nawaf Abdullah"
 
-        @media (max-width: 600px) {
-            .numbers-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-    </style>
-</head>
-<body>
+Add a TikTok button:
 
-    <div class="main-card">
-        <!-- القائمة الرئيسية -->
-        <div id="mainMenuView">
-            <h1>المستوى الأول (الأساسيات)</h1>
-            <p class="subtitle">اختر القسم المطلوب للانتقال للشرح أو الألعاب التفاعلية</p>
-            
-            <div class="options-grid">
-                <div class="option-box" onclick="showVideoSection()">
-                    <h3>تقنية الشادونق (فيديو) <i class="fa-solid fa-play-circle" style="color:#064e3b;"></i></h3>
-                    <p>مقطع يوتيوب لتدريب اللسان والتقليد الصوتي الصحيح.</p>
-                </div>
+"تابع نواف على TikTok"
 
-                <div class="option-box" onclick="showGamesSection()">
-                    <h3>الألعاب والتحديات التفاعلية (1-16) <i class="fa-solid fa-gamepad" style="color:#064e3b;"></i></h3>
-                    <p>اختبر معلوماتك واختر الجمل والصور المناسبة لكل رقم.</p>
-                </div>
-            </div>
-        </div>
+Username:
 
-        <!-- قسم الألعاب (1 إلى 16) -->
-        <div id="gamesSection" class="games-section">
-            <h2 style="color: #e2b714; margin-bottom: 20px;">ألعاب الأرقام والتحدي</h2>
-            <div class="numbers-grid">
-                <button class="num-btn" onclick="openGame('they are playing football', 'كرة القدم', 'ركوب الدراجات', 'السباحة')">1</button>
-                <button class="num-btn" onclick="openGame('she is cooking', 'الطبيخ والمطبخ', 'القراءة', 'النوم')">2</button>
-                <button class="num-btn" onclick="openGame('he is reading a book', 'قراءة كتاب', 'جري سريع', 'شرب القهوة')">3</button>
-                <button class="num-btn" onclick="openGame('she is drinking coffee', 'شرب القهوة', 'القيادة', 'التلفاز')">4</button>
-                <button class="num-btn" onclick="openGame('he is driving a car', 'قيادة السيارة', 'السباحة', 'الرسم')">5</button>
-                <button class="num-btn" onclick="openGame('they are studying english', 'دراسة الإنجليزية', 'تنظيف الغرفة', 'السفر')">6</button>
-                <button class="num-btn" onclick="openGame('she is listening to music', 'الاستماع للموسيقى', 'الكتابة', 'الطبخ')">7</button>
-                <button class="num-btn" onclick="openGame('he is running fast', 'الجري السريع', 'لعب كرة القدم', 'قراءة')">8</button>
-                <button class="num-btn" onclick="openGame('they are eating dinner', 'تناول العشاء', 'شرب القهوة', 'النوم')">9</button>
-                <button class="num-btn" onclick="openGame('she is writing a letter', 'كتابة رسالة', 'الرسم', 'القيادة')">10</button>
-                <button class="num-btn" onclick="openGame('he is swimming in pool', 'السباحة في المسبح', 'الجري', 'السفر')">11</button>
-                <button class="num-btn" onclick="openGame('they are watching tv', 'مشاهدة التلفاز', 'دراسة', 'طبخ')">12</button>
-                <button class="num-btn" onclick="openGame('she is painting a picture', 'رسم لوحة', 'كتابة', 'استماع')">13</button>
-                <button class="num-btn" onclick="openGame('he is cleaning the room', 'تنظيف الغرفة', 'لعب', 'قيادة')">14</button>
-                <button class="num-btn" onclick="openGame('they are traveling by plane', 'السفر بالطائرة', 'السباحة', 'الجري')">15</button>
-                <button class="num-btn" onclick="openGame('she is sleeping now', 'النوم الآن', 'القراءة', 'الطبخ')">16</button>
-            </div>
-            <button class="back-btn" onclick="goBackToMain()">العودة للقائمة الرئيسية</button>
-        </div>
+"@_qqbv"
 
-        <!-- قسم الفيديو -->
-        <div id="videoSection" class="video-section">
-            <h2 style="color: #e2b714; margin-bottom: 20px;">تقنية الشادونق</h2>
-            <div class="video-container">
-                <iframe id="ytIframe" src="" allowfullscreen></iframe>
-            </div>
-            <button class="back-btn" onclick="goBackToMain()">العودة للقائمة الرئيسية</button>
-        </div>
-    </div>
+The button must open this URL in a new browser tab:
 
-    <!-- نافذة اللعبة التفاعلية -->
-    <div id="gameModal" class="game-modal">
-        <div class="game-content">
-            <h2 id="modalSentence">الجملة هنا</h2>
-            <div class="game-options-list" id="modalChoices">
-                <!-- الخيارات تتعبى تلقائياً -->
-            </div>
-            <button class="back-btn" onclick="closeGameModal()">إغلاق</button>
-        </div>
-    </div>
+https://www.tiktok.com/@_qqbv
 
-    <script>
-        function showGamesSection() {
-            document.getElementById('mainMenuView').style.display = 'none';
-            document.getElementById('gamesSection').style.display = 'block';
-        }
+Use:
+target="_blank"
+rel="noopener noreferrer"
 
-        function showVideoSection() {
-            document.getElementById('mainMenuView').style.display = 'none';
-            document.getElementById('videoSection').style.display = 'block';
-            document.getElementById('ytIframe').src = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
-        }
+==================================================
+MAIN NAVIGATION
+==================================================
 
-        function goBackToMain() {
-            document.getElementById('ytIframe').src = '';
-            document.getElementById('gamesSection').style.display = 'none';
-            document.getElementById('videoSection').style.display = 'none';
-            document.getElementById('mainMenuView').style.display = 'block';
-        }
+Create a sticky navigation bar.
 
-        function openGame(sentence, correct, wrong1, wrong2) {
-            document.getElementById('modalSentence').innerText = sentence;
-            let choicesContainer = document.getElementById('modalChoices');
-            
-            // ترتيب عشوائي للخيار الصحيح
-            let options = [
-                {text: correct, correct: true},
-                {text: wrong1, correct: false},
-                {text: wrong2, correct: false}
-            ].sort(() => Math.random() - 0.5);
+Arabic navigation:
 
-            choicesContainer.innerHTML = options.map(opt => `
-                <button class="choice-btn" onclick="checkAnswer(${opt.correct})">${opt.text}</button>
-            `).join('');
+الرئيسية
+الدروس
+خطة التعلم
+المفردات
+القواعد
+الاختبارات
+قصص قصيرة
+عن الموقع
 
-            document.getElementById('gameModal').style.display = 'flex';
-        }
+English navigation:
 
-        function checkAnswer(isCorrect) {
-            if(isCorrect) {
-                alert('إجابة صحيحة كفو عليك!');
-                closeGameModal();
-            } else {
-                alert('خطأ، حاول مرة أخرى!');
-            }
-        }
+Home
+Lessons
+Learning Plan
+Vocabulary
+Grammar
+Quizzes
+Short Stories
+About
 
-        function closeGameModal() {
-            document.getElementById('gameModal').style.display = 'none';
-        }
-    </script>
-</body>
-</html>
+Add a language switcher:
+
+العربية / English
+
+Add a dark/light mode button.
+
+On mobile, convert navigation into a hamburger menu.
+
+==================================================
+WELCOME DASHBOARD
+==================================================
+
+After the hero section create a student dashboard.
+
+Title:
+
+"جاهز تبدأ؟"
+
+Show:
+
+المستوى الحالي
+A1 Beginner
+
+نسبة التقدم
+0%
+
+الدروس المكتملة
+0 / 20
+
+النقاط
+0 XP
+
+Create animated progress bars.
+
+Store progress using localStorage.
+
+==================================================
+INTERACTIVE SLIDES
+==================================================
+
+This is VERY IMPORTANT.
+
+Create a full interactive slide system.
+
+Each lesson should be presented as slides.
+
+Controls:
+
+السابق
+التالي
+
+Previous
+Next
+
+Show:
+
+Slide 1 / 10
+
+Add progress indicator.
+
+Users can move between slides using:
+- Buttons
+- Keyboard arrows
+- Touch/swipe on mobile
+
+Add smooth slide transitions.
+
+==================================================
+LESSON 1
+==================================================
+
+Create:
+
+"الدرس الأول: التحية والتعريف بالنفس"
+
+Lesson title:
+
+Greetings & Introductions
+
+Slides:
+
+1. Hello
+مرحبا
+
+2. Hi
+أهلاً
+
+3. Good morning
+صباح الخير
+
+4. How are you?
+كيف حالك؟
+
+5. I am fine, thank you.
+أنا بخير، شكراً لك.
+
+6. What is your name?
+ما اسمك؟
+
+7. My name is Nawaf.
+اسمي نواف.
+
+8. Nice to meet you.
+سعيد بلقائك.
+
+9. Where are you from?
+من أين أنت؟
+
+10. I am from Saudi Arabia.
+أنا من المملكة العربية السعودية.
+
+Each slide should contain:
+- English sentence
+- Arabic translation
+- pronunciation written in Arabic
+- Play Audio button
+- Example
+- Next button
+
+Use browser SpeechSynthesis API for English pronunciation.
+
+Example button:
+
+🔊 اسمع النطق
+
+When clicked, pronounce the English sentence.
+
+==================================================
+VOCABULARY
+==================================================
+
+Create an interactive vocabulary section.
+
+Categories:
+
+Greetings
+Family
+Food
+University
+Work
+Travel
+Sports
+Daily Life
+
+Each vocabulary card contains:
+
+English word
+Arabic meaning
+Arabic pronunciation
+Example sentence
+Audio button
+
+Add search.
+
+Add category filtering.
+
+Add "Show me a random word".
+
+==================================================
+FLASHCARDS
+==================================================
+
+Create interactive flashcards.
+
+Front:
+
+English word
+
+Back:
+
+Arabic meaning
+Example sentence
+
+Click the card to flip it.
+
+Buttons:
+
+أعرفها
+لا أعرفها
+
+Track correct/unknown words.
+
+==================================================
+GRAMMAR
+==================================================
+
+Create beginner grammar lessons.
+
+Topics:
+
+1. Verb to be
+2. Subject pronouns
+3. Present Simple
+4. Questions
+5. Negative sentences
+6. Adverbs of frequency
+7. There is / There are
+8. Can / Can't
+
+Each topic must contain:
+
+شرح بسيط بالعربي
+English explanation
+Examples
+Interactive exercises
+
+==================================================
+QUIZ SYSTEM
+==================================================
+
+Create interactive quizzes.
+
+Question example:
+
+"What is the meaning of 'Hello'?"
+
+Answers:
+
+مرحبا
+شكراً
+مع السلامة
+صباح الخير
+
+After answering:
+
+Correct:
+"ممتاز! إجابة صحيحة 🎉"
+
+Wrong:
+"حاول مرة أخرى 💪"
+
+Track score.
+
+At the end display:
+
+نتيجتك:
+8 / 10
+
+Excellent / Good / Keep Practicing
+
+Add XP points.
+
+==================================================
+SPEAKING PRACTICE
+==================================================
+
+Create a speaking practice section.
+
+Show a sentence:
+
+"My name is Nawaf."
+
+Button:
+
+🎤 تحدث
+
+Use the browser Speech Recognition API when available.
+
+Compare the user's spoken answer with the expected sentence.
+
+Show:
+
+ممتاز!
+Good job!
+
+or:
+
+حاول مرة أخرى
+
+Also provide:
+
+🔊 اسمع الجملة
+
+==================================================
+SHORT STORIES
+==================================================
+
+Create beginner A1 short stories.
+
+Example:
+
+"At the University"
+
+English story:
+
+"Today, I went to the university.
+I met my friend.
+We studied English together.
+After class, we went home."
+
+Arabic translation should be available through a button.
+
+Add:
+Listen
+Next sentence
+Show translation
+
+==================================================
+LEARNING PLAN
+==================================================
+
+Create a 4-week learning schedule inspired by the provided reference.
+
+Week 1:
+الحروف والنطق
+Greetings
+Basic vocabulary
+
+Week 2:
+Basic grammar
+Verb to be
+Pronouns
+Simple sentences
+
+Week 3:
+Questions
+Present Simple
+Daily life vocabulary
+
+Week 4:
+Speaking
+Listening
+Short stories
+Final quiz
+
+Display each week as an interactive card.
+
+When clicking a week, open its lessons.
+
+==================================================
+DAILY CHALLENGE
+==================================================
+
+Create:
+
+"تحدي اليوم"
+
+Show one random English question.
+
+Example:
+
+"How are you?"
+
+Possible answers:
+
+I am fine.
+I am from Najran.
+I like football.
+
+Allow the student to select an answer.
+
+Give XP.
+
+==================================================
+ACHIEVEMENTS
+==================================================
+
+Create badges:
+
+🌟 أول درس
+🏆 أول اختبار
+🔥 3 أيام متتالية
+📚 10 كلمات
+🎯 100 XP
+🗣️ أول تدريب تحدث
+
+Initially locked.
+
+Unlock automatically based on progress.
+
+==================================================
+PROGRESS
+==================================================
+
+Use localStorage.
+
+Save:
+
+completedLessons
+quizScore
+xp
+knownWords
+unknownWords
+achievements
+currentLesson
+language
+theme
+
+If the user closes the browser and returns, progress must remain.
+
+==================================================
+FOOTER
+==================================================
+
+Create a professional footer.
+
+Arabic:
+
+"English Start — ابدأ الإنجليزية"
+
+"موقع تعليمي لتعلم الإنجليزية للمبتدئين بطريقة سهلة وتفاعلية."
+
+Creator:
+
+"تم تصميم وبرمجة الموقع بواسطة نواف عبدالله"
+
+English:
+
+"Designed & Developed by Nawaf Abdullah"
+
+TikTok:
+
+"@_qqbv"
+
+Link:
+
+https://www.tiktok.com/@_qqbv
+
+Copyright:
+
+"© 2026 Nawaf Abdullah. جميع الحقوق محفوظة."
+
+English:
+
+"© 2026 Nawaf Abdullah. All Rights Reserved."
+
+==================================================
+IMPORTANT UI DETAILS
+==================================================
+
+Use:
+- RTL for Arabic
+- LTR for English content
+- responsive cards
+- hover effects
+- smooth transitions
+- animated progress bars
+- modern buttons
+- accessible buttons
+- semantic HTML
+- clean CSS
+- no horizontal scrolling on mobile
+
+Make the website feel like a real educational platform, not a school assignment.
+
+==================================================
+CODE QUALITY
+==================================================
+
+Separate files:
+
+index.html
+style.css
+script.js
+
+Write clean, organized code.
+
+Add comments explaining important JavaScript sections.
+
+Do not leave placeholder buttons.
+
+Every button must perform an action.
+
+Do not use fake links except where clearly marked.
+
+Make sure the TikTok button works.
+
+Make sure quizzes work.
+
+Make sure flashcards work.
+
+Make sure slides work.
+
+Make sure audio pronunciation works.
+
+Make sure localStorage works.
+
+Make sure language switching works.
+
+Make sure dark mode works.
+
+Make sure mobile navigation works.
+
+After creating the files, inspect the entire project and fix all HTML, CSS and JavaScript errors.
+
+Then give me instructions for running the website locally.
