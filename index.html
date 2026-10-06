@@ -9,16 +9,13 @@
     <style>
         :root {
             --bg-primary: #07090e;
-            --bg-secondary: #0f172a;
             --accent-gold: #e2b714;
             --accent-gold-light: #f7e9a0;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --card-bg: rgba(15, 23, 42, 0.85);
             --border-color: rgba(226, 183, 20, 0.3);
-            --success-color: #10b981;
             --tiktok-color: #fe2c55;
-            --genially-green: #064e3b;
             --genially-card: #ffffff;
         }
 
@@ -119,7 +116,7 @@
         }
 
         @keyframes fadeOutWelcome {
-            to { opacity: 0; visibility: hidden; }
+            to { opacity: 0; visibility: hidden; pointer-events: none; }
         }
 
         header {
@@ -256,7 +253,7 @@
             color: var(--bg-primary);
         }
 
-        /* نافذة العرض التفاعلي المتفرع (فكرة الـ Genially الخضراء) */
+        /* نافذة العرض التفاعلي المتفرع */
         .interactive-modal {
             display: none;
             position: fixed;
@@ -264,7 +261,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(4, 30, 21, 0.95);
+            background: rgba(4, 30, 21, 0.96);
             backdrop-filter: blur(15px);
             z-index: 2000;
             justify-content: center;
@@ -278,7 +275,7 @@
             border-radius: 28px;
             width: 100%;
             max-width: 1100px;
-            max-height: 92vh;
+            max-height: 94vh;
             overflow-y: auto;
             padding: 40px;
             position: relative;
@@ -312,7 +309,7 @@
 
         .interactive-header h2 {
             color: var(--accent-gold);
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             font-weight: 900;
             margin-bottom: 10px;
         }
@@ -322,10 +319,10 @@
             font-size: 1.1rem;
         }
 
-        /* شبكة البطاقات البيضاء التفاعلية (مثل صورة الجداول والمسارات) */
+        /* شبكة الأزرار البيضاء التفاعلية */
         .branches-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
         }
 
@@ -348,7 +345,7 @@
         }
 
         .branch-box h4 {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 800;
             color: #0f172a;
             margin-bottom: 10px;
@@ -362,43 +359,74 @@
         }
 
         .branch-box p {
-            font-size: 0.95krem;
+            font-size: 0.92rem;
             color: #475569;
             line-height: 1.6;
         }
 
-        /* نافذة المحتوى التفصيلي الداخلي للزر الفرعي */
+        /* حاوية عرض الفيديو والشرح التفصيلي */
         .detail-view {
             display: none;
-            margin-top: 25px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 25px;
-            border-radius: 16px;
-            border: 1px dashed var(--accent-gold);
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(226, 183, 20, 0.4);
             color: #fff;
         }
 
-        .detail-view h3 {
-            color: var(--accent-gold);
-            margin-bottom: 12px;
-            font-size: 1.5rem;
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* نسبة 16:9 للفيديو */
+            height: 0;
+            background: #000;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border: 1px solid var(--border-color);
         }
 
-        .detail-view p {
+        .video-container iframe, 
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .detail-content h3 {
+            color: var(--accent-gold);
+            margin-bottom: 12px;
+            font-size: 1.6rem;
+        }
+
+        .detail-content p {
             line-height: 1.8;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: #e2e8f0;
+            margin-bottom: 25px;
         }
 
         .back-to-branches {
-            margin-top: 15px;
             background: var(--accent-gold);
             color: var(--bg-primary);
             border: none;
-            padding: 8px 20px;
-            border-radius: 20px;
+            padding: 10px 25px;
+            border-radius: 25px;
             font-weight: 700;
             cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s;
+        }
+
+        .back-to-branches:hover {
+            transform: scale(1.05);
         }
 
         footer {
@@ -434,7 +462,7 @@
     <div class="welcome-screen">
         <div class="welcome-logo"><i class="fa-solid fa-crown"></i></div>
         <div class="welcome-title">Elite English</div>
-        <p class="welcome-subtitle">منصتك الاحترافية لإتقان الإنجليزية. تابعني على تيك توك للمزيد من الشروحات الحصرية!</p>
+        <p class="welcome-subtitle">منصتك الاحترافية لإتقان الإنجليزية مع مقاطع الفيديو التعليمية والشروحات التفاعلية!</p>
         <a href="https://www.tiktok.com/@_qqbv" target="_blank" class="welcome-tiktok-btn">
             <i class="fa-brands fa-tiktok"></i> تابعني على تيك توك
         </a>
@@ -453,88 +481,97 @@
     <main>
         <div class="hero-section">
             <h1>ارتقِ بمستواك اللغوي باحترافية</h1>
-            <p>اختر مستواك الدراسي وانتقل إلى العروض التفاعلية والمسارات التدريبية المتكاملة.</p>
+            <p>اختر مستواك وانتقل للعروض التفاعلية، الجداول، ومقاطع الفيديو التعليمية المصغرة.</p>
         </div>
 
         <div class="levels-grid">
-            <div class="level-card" onclick="openInteractive('المستوى الأول (الأساسيات والجدول الدراسي)')">
+            <div class="level-card" onclick="openInteractive('المستوى الأول (الأساسيات ومقاطع الفيديو)')">
                 <div class="level-icon"><i class="fa-solid fa-seedling"></i></div>
                 <h3>المستوى الأول</h3>
-                <p>اضغط لاستعراض خطة الأسابيع، المسارات التفاعلية، وتقنيات التعلم الشاملة.</p>
+                <p>استعراض خطة الأسابيع، الحروف، ومقاطع الشرح التفاعلية البسيطة.</p>
                 <button class="level-btn">يلا ابدأ التصفح</button>
             </div>
 
-            <div class="level-card" onclick="openInteractive('المستوى الثاني (ما قبل المتوسط والتطوير)')">
+            <div class="level-card" onclick="openInteractive('المستوى الثاني (القواعد والفيديو التطبيقي)')">
                 <div class="level-icon"><i class="fa-solid fa-chart-line"></i></div>
                 <h3>المستوى الثاني</h3>
-                <p>جداول تفاعلية، قواعد أساسية، وتطبيقات يومية متقدمة للتواصل.</p>
+                <p>جداول تفاعلية، قواعد أساسية، ومقاطع فيديو قصيرة لشرح التطبيق.</p>
                 <button class="level-btn">يلا ابدأ التصفح</button>
             </div>
 
-            <div class="level-card" onclick="openInteractive('المستوى الثالث (المتوسط والطلاقة)')">
+            <div class="level-card" onclick="openInteractive('المستوى الثالث (المحادثة والفيديو)')">
                 <div class="level-icon"><i class="fa-solid fa-fire"></i></div>
                 <h3>المستوى الثالث</h3>
-                <p>محادثات متقدمة، قصص قصيرة، وتقنيات استماع واحتراف النطق.</p>
+                <p>محادثات متقدمة، قصص مترجمة، ومقاطع استماع لتحسين النطق.</p>
                 <button class="level-btn">يلا ابدأ التصفح</button>
             </div>
 
-            <div class="level-card" onclick="openInteractive('المستوى الرابع (الاحتراف والتقنيات العالية)')">
+            <div class="level-card" onclick="openInteractive('المستوى الرابع (الاحتراف والشادونق)')">
                 <div class="level-icon"><i class="fa-solid fa-gem"></i></div>
                 <h3>المستوى الرابع</h3>
-                <p>أكثر من 500 جملة، تقنية الشادونق، والتحدث باحترافية مطلقة.</p>
+                <p>أكثر من 500 جملة، تقنية الشادونق بالفيديو، والطلاقة المطلقة.</p>
                 <button class="level-btn">يلا ابدأ التصفح</button>
             </div>
         </div>
     </main>
 
-    <!-- نافذة العرض التفاعلي المتفرع (تشبه Genially) -->
+    <!-- نافذة العرض التفاعلي المتفرع مع الفيديو -->
     <div id="interactiveModal" class="interactive-modal">
         <div class="interactive-container">
             <button class="close-interactive" onclick="closeInteractive()">&times;</button>
             
             <div class="interactive-header">
                 <h2 id="modalMainTitle">عنوان المستوى</h2>
-                <p>اختر أي قسم أدناه للانتقال الفوري لمحتواه وشرحه التفصيلي:</p>
+                <p>اضغط على أي قسم أدناه لمشاهدة المقطع المرئي والشرح التفصيلي الفوري:</p>
             </div>
 
-            <!-- شبكة الأزرار المتفرعة (مثل الصور التي أرسلتها) -->
+            <!-- شبكة الأزرار المتفرعة -->
             <div class="branches-grid" id="branchesGrid">
-                <div class="branch-box" onclick="showDetail('الأسبوع الأول: الحروف والنطق', 'الهدف: فهم أصوات اللغة الإنجليزية بشكل عمق. المحتوى: الفرق بين الصوت القصير والطويل، الحروف المركبة، وتدريبات النطق اليومية.')">
-                    <h4>الأسبوع الأول <i class="fa-solid fa-arrow-left"></i></h4>
-                    <p>الحروف، الصوتيات، وتأسيس النطق الصحيح من الصفر.</p>
+                <div class="branch-box" onclick="showDetail('الأسبوع الأول: الحروف والنطق', 'شرح مرئي مبسط لأصوات الحروف الإنجليزية والفرق بين الأصوات القصيرة والطويلة مع التدريب العملي.', 'https://www.w3schools.com/html/mov_bbb.mp4')">
+                    <h4>الأسبوع الأول (فيديو) <i class="fa-solid fa-play-circle"></i></h4>
+                    <p>فيديو قصير لتأسيس النطق الصحيح وحروف اللغة.</p>
                 </div>
 
-                <div class="branch-box" onclick="showDetail('الأسبوع الثاني: القواعد الأساسية', 'الهدف: بناء أساس قوي في القواعد الإنجليزية. المحتوى: زمن المضارع البسيط، أفعال الكينونة (Verb to be)، وتكوين الجمل المثبتة والمنفية.')">
-                    <h4>الأسبوع الثاني <i class="fa-solid fa-arrow-left"></i></h4>
-                    <p>أهم القواعد التأسيسية وتطبيقاتها العملية الفورية.</p>
+                <div class="branch-box" onclick="showDetail('الأسبوع الثاني: القواعد الأساسية', 'فيديو تفاعلي يوضح طريقة تكوين الجمل في المضارع البسيط وأفعال الكينونة بأبسط طريقة ممكنة.', 'https://www.w3schools.com/html/mov_bbb.mp4')">
+                    <h4>الأسبوع الثاني (فيديو) <i class="fa-solid fa-play-circle"></i></h4>
+                    <p>شرح مرئي لأهم القواعد الأساسية وتطبيقاتها.</p>
                 </div>
 
-                <div class="branch-box" onclick="showDetail('شرح لأهم القواعد', 'تغطية شاملة لأهم القواعد المستخدمة في المحادثات اليومية وكيفية تجنب الأخطاء الشائعة بنسبة 90%.')">
-                    <h4>شرح لأهم القواعد <i class="fa-solid fa-arrow-left"></i></h4>
-                    <p>دليل مبسط لأهم القواعد وأكثرها استخداماً.</p>
+                <div class="branch-box" onclick="showDetail('شرح لأهم القواعد', 'مقطع مرئي يغطي أهم القواعد الأكثر استخداماً في المحادثات اليومية لتتجنب الأخطاء الشائعة.', 'https://www.w3schools.com/html/mov_bbb.mp4')">
+                    <h4>شرح لأهم القواعد <i class="fa-solid fa-play-circle"></i></h4>
+                    <p>دليل فيديو مبسط لأبرز القواعد الإنجليزية.</p>
                 </div>
 
-                <div class="branch-box" onclick="showDetail('أكثر من 500 جملة شائعة', 'قائمة ضخمة ومصنفة لأكثر 500 جملة تستخدم في الحياة اليومية والسفر ومقار العمل لتحقيق الطلاقة السريعة.')">
-                    <h4>500 جملة شائعة <i class="fa-solid fa-arrow-left"></i></h4>
-                    <p>مفردات وجمل جاهزة للاستخدام الفوري في حياتك.</p>
+                <div class="branch-box" onclick="showDetail('أكثر من 500 جملة شائعة', 'قائمة فيديو تفاعلية لأكثر 500 جملة تستخدم في السفر والمواقف اليومية لتحقيق الطلاقة السريعة.', 'https://www.w3schools.com/html/mov_bbb.mp4')">
+                    <h4>500 جملة شائعة <i class="fa-solid fa-play-circle"></i></h4>
+                    <p>جمل جاهزة ومسموعة للاستخدام الفوري.</p>
                 </div>
 
-                <div class="branch-box" onclick="showDetail('قصص قصيرة تفاعلية', 'قصص ممتعة ومترجمة تساعدك على تعزيز حصيلتك اللغوية وفهم سياق الكلمات عبر القراءة الممتعة.')">
-                    <h4>قصص قصيرة <i class="fa-solid fa-arrow-left"></i></h4>
-                    <p>قصص مشوقة لتطوير استيعاب القراءة والكلمات.</p>
+                <div class="branch-box" onclick="showDetail('قصص قصيرة تفاعلية', 'قصة قصيرة مرئية ومسموعة تساعدك على تعزيز حصيلتك اللغوية وفهم سياق الكلمات أثناء الاستماع.', 'https://www.w3schools.com/html/mov_bbb.mp4')">
+                    <h4>قصص قصيرة <i class="fa-solid fa-play-circle"></i></h4>
+                    <p>قصص مشوقة بالفيديو لتطوير الاستيعاب والكلمات.</p>
                 </div>
 
-                <div class="branch-box" onclick="showDetail('تقنية الشادونق (Shadowing)', 'التقنية الأقوى عالمياً لتدريب اللسان والأذن على التحدث كالناطقين الأصليين من خلال التقليد الصوتي.')">
-                    <h4>تقنية الشادونق <i class="fa-solid fa-arrow-left"></i></h4>
-                    <p>السر الحقيقي لاكتساب اللكنة والطلاقة السريعة.</p>
+                <div class="branch-box" onclick="showDetail('تقنية الشادونق (Shadowing)', 'الفيديو الأهم عالمياً لتطبيق تقنية التخاطب والتقليد الصوتي لاكتساب لكنة الناطقين الأصليين.', 'https://www.w3schools.com/html/mov_bbb.mp4')">
+                    <h4>تقنية الشادونق <i class="fa-solid fa-play-circle"></i></h4>
+                    <p>السر المرئي لاكتساب الطلاقة السريعة والنطق السليم.</p>
                 </div>
             </div>
 
-            <!-- حاوية عرض التفاصيل عند الضغط على أي زر -->
+            <!-- نافذة عرض الفيديو والتفاصيل الداخلية -->
             <div id="detailView" class="detail-view">
-                <h3 id="detailTitle">عنوان القسم</h3>
-                <p id="detailDesc">تفاصيل المحتوى...</p>
-                <button class="back-to-branches" onclick="backToBranches()"><i class="fa-solid fa-arrow-right"></i> العودة للأقسام</button>
+                <div class="video-container">
+                    <!-- مشغّل الفيديو -->
+                    <video id="sectionVideo" controls>
+                        <source id="videoSource" src="" type="video/mp4">
+                        متصفحك لا يدعم عرض الفيديو.
+                    </video>
+                </div>
+                <div class="detail-content">
+                    <h3 id="detailTitle">عنوان القسم</h3>
+                    <p id="detailDesc">تفاصيل المحتوى والشرح المرئي...</p>
+                    <button class="back-to-branches" onclick="backToBranches()"><i class="fa-solid fa-arrow-right"></i> العودة للأقسام</button>
+                </div>
             </div>
         </div>
     </div>
@@ -549,22 +586,36 @@
             document.getElementById('modalMainTitle').innerText = levelName;
             document.getElementById('branchesGrid').style.display = 'grid';
             document.getElementById('detailView').style.display = 'none';
+            // إيقاف الفيديو عند فتح نافذة جديدة
+            let video = document.getElementById('sectionVideo');
+            video.pause();
             document.getElementById('interactiveModal').style.display = 'flex';
         }
 
-        function showDetail(title, desc) {
+        function showDetail(title, desc, videoUrl) {
             document.getElementById('detailTitle').innerText = title;
             document.getElementById('detailDesc').innerText = desc;
+            
+            let video = document.getElementById('sectionVideo');
+            let source = document.getElementById('videoSource');
+            source.src = videoUrl;
+            video.load();
+            video.play();
+
             document.getElementById('branchesGrid').style.display = 'none';
             document.getElementById('detailView').style.display = 'block';
         }
 
         function backToBranches() {
+            let video = document.getElementById('sectionVideo');
+            video.pause();
             document.getElementById('detailView').style.display = 'none';
             document.getElementById('branchesGrid').style.display = 'grid';
         }
 
         function closeInteractive() {
+            let video = document.getElementById('sectionVideo');
+            video.pause();
             document.getElementById('interactiveModal').style.display = 'none';
         }
 
@@ -572,6 +623,8 @@
             let modal = document.getElementById('interactiveModal');
             if (event.target == modal) {
                 modal.style.display = "none";
+                let video = document.getElementById('sectionVideo');
+                video.pause();
             }
         }
     </script>
