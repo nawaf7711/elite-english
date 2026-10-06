@@ -261,7 +261,7 @@
             color: var(--bg-primary);
         }
 
-        /* نافذة الدروس والألعاب التفاعلية */
+        /* نافذة الدروس والألغاز التفاعلية */
         .lesson-modal {
             display: none;
             position: fixed;
@@ -343,6 +343,7 @@
             font-size: 1.05rem;
         }
 
+        /* صندوق الألغاز والتحديات المتقدم */
         .quiz-box {
             background: rgba(226, 183, 20, 0.04);
             border: 1px dashed var(--accent-gold);
@@ -387,6 +388,18 @@
             margin-top: 20px;
             font-weight: 700;
             font-size: 1.1rem;
+        }
+
+        .next-quiz-btn {
+            margin-top: 15px;
+            background: var(--accent-gold);
+            color: var(--bg-primary);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            display: none;
         }
 
         footer {
@@ -448,28 +461,28 @@
         </div>
 
         <div class="levels-grid">
-            <div class="level-card" onclick="openLesson('المستوى المبتدئ (A1)', 'مخصص للبدايات الكاملة، تعلم الحروف، أساسيات النطق، التحيات، وأبسط الكلمات اليومية.', 'قواعد الكينونة (Verb To Be)، تكوين الجمل البسيطة، والضمائر الشخصية.', 'أكثر من 300 كلمة أساسية.', 'اختر الإجابة الصحيحة: أي من التالي يعتبر ضمير فاعل؟', 'He', 'Apple', 0)">
+            <div class="level-card" onclick="openLevel('A1')">
                 <div class="level-icon"><i class="fa-solid fa-seedling"></i></div>
                 <h3>المستوى المبتدئ (A1)</h3>
                 <p>البداية المثالية لبناء أساس قوي ونطق صحيح.</p>
                 <button class="level-btn">ابدأ التعلم والتحدي</button>
             </div>
 
-            <div class="level-card" onclick="openLesson('ما قبل المتوسط (A2)', 'تطوير التواصل في المواقف المألوفة، التحدث عن الروتين اليومي والماضي البسيط.', 'الأزمنة البسيطة (المضارع والماضي)، وتكوين الأسئلة.', 'تجاوز 600 كلمة متقدمة.', 'اختر الإجابة الصحيحة: الماضي من فعل Go هو؟', 'Went', 'Gone', 0)">
+            <div class="level-card" onclick="openLevel('A2')">
                 <div class="level-icon"><i class="fa-solid fa-chart-line"></i></div>
                 <h3>ما قبل المتوسط (A2)</h3>
                 <p>توسيع آفاق التواصل اليومي وفهم الجمل المركبة.</p>
                 <button class="level-btn">ابدأ التعلم والتحدي</button>
             </div>
 
-            <div class="level-card" onclick="openLesson('المتوسط (B1)', 'الانتقال للاستقلالية، التعامل مع المواقف أثناء السفر ووصف التجارب والأحلام.', 'المضارع التام، الماضي المستمر، والأفعال الناقصة.', 'مفردات متقدمة للمناقشة وإبداء الرأي.', 'اختر الإجابة الصحيحة: ما هو الماضي التام من Use؟', 'Have used', 'Had used', 1)">
+            <div class="level-card" onclick="openLevel('B1')">
                 <div class="level-icon"><i class="fa-solid fa-fire"></i></div>
                 <h3>المستوى المتوسط (B1)</h3>
                 <p>ابدأ التحدث بطلاقة والتعبير عن أفكارك براحة تامة.</p>
                 <button class="level-btn">ابدأ التعلم والتحدي</button>
             </div>
 
-            <div class="level-card" onclick="openLesson('فوق المتوسط (B2)', 'الطلاقة الحقيقية والتفاعل بعفوية مع المتحدثين الأصليين، وفهم النصوص المعقدة.', 'المبني للجهول، الجمل الشرطية المتقدمة، والكلام المنقول.', 'أكثر من 1500 مفردة احترافية واصطلاحات (Idioms).', 'اختر الإجابة الصحيحة: مرادف كلمة Clever هو؟', 'Smart', 'Slow', 0)">
+            <div class="level-card" onclick="openLevel('B2')">
                 <div class="level-icon"><i class="fa-solid fa-gem"></i></div>
                 <h3>فوق المتوسط (B2)</h3>
                 <p>مستوى الطلاقة والتفاعل الاحترافي الكامل.</p>
@@ -478,7 +491,7 @@
         </div>
     </main>
 
-    <!-- نافذة العرض التفاعلية للدروس والألعاب -->
+    <!-- نافذة العرض التفاعلية للدروس والألغاز المتعددة -->
     <div id="lessonModal" class="lesson-modal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeLesson()">&times;</button>
@@ -506,6 +519,7 @@
                     <button class="quiz-btn" id="opt1" onclick="checkAnswer(1)"></button>
                 </div>
                 <div class="quiz-result" id="quizResult"></div>
+                <button id="nextQuizBtn" class="next-quiz-btn" onclick="nextQuiz()">لغز / سؤال جديد <i class="fa-solid fa-arrow-left"></i></button>
             </div>
         </div>
     </div>
@@ -516,31 +530,103 @@
     </footer>
 
     <script>
-        let correctOptIndex = 0;
+        // بنك الألغاز والأسئلة الشامل لكل مستوى
+        const levelsData = {
+            'A1': {
+                title: 'المستوى المبتدئ (A1)',
+                desc: 'مخصص للبدايات الكاملة، تعلم الحروف، أساسيات النطق، التحيات، وأبسط الكلمات اليومية.',
+                grammar: 'قواعد الكينونة (Verb To Be)، تكوين الجمل البسيطة، والضمائر الشخصية.',
+                vocab: 'أكثر من 300 كلمة أساسية.',
+                quizzes: [
+                    { q: 'اختر الإجابة الصحيحة: أي من التالي يعتبر ضمير فاعل؟', options: ['He', 'Apple'], correct: 0 },
+                    { q: 'لغز القواعد: ما هي الكلمة المناسبة؟ (I ___ a student)', options: ['am', 'is'], correct: 0 },
+                    { q: 'اختر المعنى الصحيح لكلمة (Hello):', options: ['مع السلامة', 'أهلاً وسهلاً'], correct: 1 }
+                ]
+            },
+            'A2': {
+                title: 'ما قبل المتوسط (A2)',
+                desc: 'تطوير التواصل في المواقف المألوفة، التحدث عن الروتين اليومي والماضي البسيط.',
+                grammar: 'الأزمنة البسيطة (المضارع والماضي)، وتكوين الأسئلة.',
+                vocab: 'تجاوز 600 كلمة متقدمة.',
+                quizzes: [
+                    { q: 'اختر الإجابة الصحيحة: الماضي من فعل Go هو؟', options: ['Went', 'Gone'], correct: 0 },
+                    { q: 'لغز الزمن: (She ___ TV yesterday)', options: ['watched', 'watch'], correct: 0 },
+                    { q: 'اختر الكلمة التي تعبر عن المستقبل:', options: ['Tomorrow', 'Yesterday'], correct: 0 }
+                ]
+            },
+            'B1': {
+                title: 'المستوى المتوسط (B1)',
+                desc: 'الانتقال للاستقلالية، التعامل مع المواقف أثناء السفر ووصف التجارب والأحلام.',
+                grammar: 'المضارع التام، الماضي المستمر، والأفعال الناقصة.',
+                vocab: 'مفردات متقدمة للمناقشة وإبداء الرأي.',
+                quizzes: [
+                    { q: 'اختر الإجابة الصحيحة: ما هو الماضي التام من Use؟', options: ['Have used', 'Had used'], correct: 1 },
+                    { q: 'لغز التعبير: (I have ___ to London twice)', options: ['be', 'been'], correct: 1 },
+                    { q: 'اختر الفعل الناقص المناسب للطلب بأدب:', options: ['Could', 'Must'], correct: 0 }
+                ]
+            },
+            'B2': {
+                title: 'فوق المتوسط (B2)',
+                desc: 'الطلاقة الحقيقية والتفاعل بعفوية مع المتحدثين الأصليين، وفهم النصوص المعقدة.',
+                grammar: 'المبني للجهول، الجمل الشرطية المتقدمة، والكلام المنقول.',
+                vocab: 'أكثر من 1500 مفردة احترافية واصطلاحات (Idioms).',
+                quizzes: [
+                    { q: 'اختر الإجابة الصحيحة: مرادف كلمة Clever هو؟', options: ['Smart', 'Slow'], correct: 0 },
+                    { q: 'لغز الاصطلاحات: ماذا تعني عبارة (Piece of cake)?', options: ['صعب جداً', 'سهل جداً'], correct: 1 },
+                    { q: 'اختر الجملة المبنية للمجهول الصحيحة:', options: ['The car was stolen', 'He stole the car'], correct: 0 }
+                ]
+            }
+        };
 
-        function openLesson(title, desc, grammar, vocab, qText, optA, optB, correctIdx) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalDesc').innerText = desc;
-            document.getElementById('modalGrammar').innerText = grammar;
-            document.getElementById('modalVocab').innerText = vocab;
-            
-            document.getElementById('quizQuestion').innerText = qText;
-            document.getElementById('opt0').innerText = optA;
-            document.getElementById('opt1').innerText = optB;
-            document.getElementById('quizResult').innerText = "";
-            correctOptIndex = correctIdx;
+        let currentLevelKey = 'A1';
+        let currentQuizIdx = 0;
+        let activeLevelData = null;
 
+        function openLevel(levelKey) {
+            currentLevelKey = levelKey;
+            activeLevelData = levelsData[levelKey];
+            currentQuizIdx = 0;
+
+            document.getElementById('modalTitle').innerText = activeLevelData.title;
+            document.getElementById('modalDesc').innerText = activeLevelData.desc;
+            document.getElementById('modalGrammar').innerText = activeLevelData.grammar;
+            document.getElementById('modalVocab').innerText = activeLevelData.vocab;
+
+            loadQuiz();
             document.getElementById('lessonModal').style.display = 'flex';
         }
 
+        function loadQuiz() {
+            let qData = activeLevelData.quizzes[currentQuizIdx];
+            document.getElementById('quizQuestion').innerText = `لغز (${currentQuizIdx + 1}/${activeLevelData.quizzes.length}): ${qData.q}`;
+            document.getElementById('opt0').innerText = qData.options[0];
+            document.getElementById('opt1').innerText = qData.options[1];
+            document.getElementById('quizResult').innerText = "";
+            document.getElementById('nextQuizBtn').style.display = 'none';
+        }
+
         function checkAnswer(selectedIdx) {
+            let qData = activeLevelData.quizzes[currentQuizIdx];
             let resultDiv = document.getElementById('quizResult');
-            if (selectedIdx === correctOptIndex) {
+            
+            if (selectedIdx === qData.correct) {
                 resultDiv.style.color = "var(--success-color)";
                 resultDiv.innerText = "🎉 إجابة صحيحة! أبدعت يا بطل.";
+                if (currentQuizIdx < activeLevelData.quizzes.length - 1) {
+                    document.getElementById('nextQuizBtn').style.display = 'inline-block';
+                } else {
+                    resultDiv.innerText += " 🏆 أنهيت كافة ألغاز هذا المستوى بنجاح كلي!";
+                }
             } else {
                 resultDiv.style.color = "var(--error-color)";
                 resultDiv.innerText = "❌ إجابة خاطئة، حاول مرة أخرى!";
+            }
+        }
+
+        function nextQuiz() {
+            currentQuizIdx++;
+            if (currentQuizIdx < activeLevelData.quizzes.length) {
+                loadQuiz();
             }
         }
 
