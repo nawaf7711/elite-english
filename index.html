@@ -9,10 +9,10 @@
         :root {
             --primary-color: #1b4d3e;
             --secondary-color: #2b7a62;
-            --accent-color: #e0f2fe;
-            --text-dark: #222;
+            --accent-color: #4ade80;
             --text-light: #fff;
             --card-bg: #225c4a;
+            --card-hover: #2b7a62;
         }
 
         * {
@@ -32,20 +32,30 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
             padding: 20px;
             width: 100%;
             text-align: center;
         }
 
+        /* الشاشات */
+        .screen {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        /* شاشة الترحيب */
         .welcome-screen {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 80vh;
-            animation: fadeIn 1s ease-in-out;
+            min-height: 75vh;
         }
 
         .welcome-screen h1 {
@@ -55,17 +65,17 @@
         }
 
         .welcome-screen p {
-            font-size: 1.3rem;
-            max-width: 600px;
+            font-size: 1.25rem;
+            max-width: 650px;
             line-height: 1.8;
             margin-bottom: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
-        .btn-start {
+        .btn-main {
             background-color: #ffffff;
             color: var(--primary-color);
             padding: 12px 35px;
@@ -78,75 +88,31 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        .btn-start:hover {
+        .btn-main:hover {
             background-color: #f0f0f0;
             transform: translateY(-3px);
         }
 
-        .section-view {
-            display: none;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        .section-view.active {
-            display: block;
-        }
-
         .header-title {
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 25px;
-            font-weight: 700;
+            font-weight: 900;
+            letter-spacing: 0.5px;
         }
 
-        .grid-menu {
+        /* شبكة الأزرار الرئيسية والدورة */
+        .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin-top: 15px;
             margin-bottom: 30px;
         }
 
-        .card-item {
+        .menu-card {
             background-color: var(--card-bg);
             border: 2px solid rgba(255, 255, 255, 0.15);
-            padding: 15px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .card-item:hover {
-            background-color: #2b7a62;
-            transform: scale(1.02);
-        }
-
-        .card-text {
-            text-align: right;
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-
-        .audio-icon {
-            background: rgba(0,0,0,0.2);
-            padding: 8px;
-            border-radius: 50%;
-            font-size: 0.9rem;
-        }
-
-        .main-menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .menu-btn {
-            background-color: var(--card-bg);
-            border: 2px solid rgba(255,255,255,0.2);
-            padding: 20px;
+            padding: 22px;
             border-radius: 15px;
             font-size: 1.2rem;
             font-weight: 700;
@@ -154,20 +120,129 @@
             cursor: pointer;
             transition: 0.3s;
             text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        .menu-btn:hover {
-            background-color: #328c70;
+        .menu-card:hover {
+            background-color: var(--card-hover);
             transform: translateY(-3px);
+            border-color: var(--accent-color);
         }
 
-        .nav-footer {
+        /* شبكة محتويات القواعد والأحرف */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .content-item {
+            background-color: var(--card-bg);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            padding: 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: right;
+        }
+
+        .content-item:hover {
+            background-color: var(--card-hover);
+            transform: scale(1.02);
+            border-color: var(--accent-color);
+        }
+
+        /* نافذةبائسة (Modal) لعرض الشرح والأمثلة */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: #163d31;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 550px;
+            width: 100%;
+            border: 2px solid var(--accent-color);
+            text-align: right;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .modal-content h3 {
+            color: var(--accent-color);
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
+
+        .modal-content p, .modal-content ul {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            color: #e2e8f0;
+        }
+
+        .modal-content ul {
+            padding-right: 20px;
+        }
+
+        .close-modal {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            float: left;
+        }
+
+        /* خريطة العب وتعلّم (16 مرحلة) */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            max-width: 600px;
+            margin: 0 auto 25px auto;
+        }
+
+        .level-box {
+            background-color: var(--card-bg);
+            border: 2px solid rgba(255,255,255,0.2);
+            padding: 20px 0;
+            border-radius: 12px;
+            font-size: 1.4rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .level-box:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        /* أزرار التنقل السفلية */
+        .nav-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 30px;
-            background: rgba(0, 0, 0, 0.2);
-            margin-top: 20px;
+            padding: 12px 25px;
+            background: rgba(0, 0, 0, 0.25);
+            margin-top: 15px;
         }
 
         .nav-btn {
@@ -180,9 +255,10 @@
         }
 
         .nav-btn:hover {
-            color: #a8d5ba;
+            color: var(--accent-color);
         }
 
+        /* الفوتر وحقوق الملكية */
         footer {
             background-color: #12352b;
             padding: 15px;
@@ -192,7 +268,7 @@
         }
 
         footer a {
-            color: #4ade80;
+            color: var(--accent-color);
             text-decoration: none;
             font-weight: bold;
         }
@@ -202,7 +278,7 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
@@ -211,85 +287,144 @@
 
     <div class="container">
         
-        <!-- 1. الصفحة الترحيبية -->
-        <div id="screen-welcome" class="welcome-screen">
+        <!-- 1. الشاشة الترحيبية -->
+        <div id="screen-welcome" class="screen active welcome-screen">
             <h1>أهلاً بك في عالم الإنجليزية مع نواف! 🚀</h1>
             <p>
                 "لا توجد إخفاقات، بل هي تجارب تقربك خطوة إضافية نحو إتقان اللغة. استمر في التعلم، وثق بقدراتك، واجعل شغفك نافذةً تطل بها على العالم!"
             </p>
-            <button class="btn-start" onclick="goToSection('screen-main')">يـلا أبـدأ</button>
+            <button class="btn-main" onclick="changeScreen('screen-main')">يـلا أبـدأ</button>
         </div>
 
-        <!-- 2. القائمة الرئيسية للدورة (من A1 إلى الاحتراف) -->
-        <div id="screen-main" class="section-view">
-            <h2 class="header-title">مستويات الدورة الشاملة (من A1 إلى الاحتراف)</h2>
-            <div class="main-menu-grid">
-                <div class="menu-btn" onclick="alert('مرحباً بك في المستوى الأول A1 - الأساسيات والحروف')">المستوى الأول: الحروف والأساسيات (A1)</div>
-                <div class="menu-btn" onclick="goToSection('screen-vowels')">حروف العلة وتركيب الأصوات[span_0](start_span)[span_0](end_span)</div>
-                <div class="menu-btn" onclick="goToSection('screen-alphabet')">الأحرف الأبجدية والدمج[span_1](start_span)[span_1](end_span)[span_2](start_span)[span_2](end_span)</div>
-                <div class="menu-btn" onclick="alert('شرح أهم قواعد الانجليزية بطريقة مبسطة')">شرح لأهم القواعد[span_3](start_span)[span_3](end_span)</div>
-                <div class="menu-btn" onclick="alert('قصص قصيرة تفاعلية لتنمية مهارة القراءة')">قصص قصيرة (Short Stories)[span_4](start_span)[span_4](end_span)</div>
-                <div class="menu-btn" onclick="alert('تقنية الشادونق (Shadowing) لتحسين النطق والاستماع')">تقنية الشادونق[span_5](start_span)[span_5](end_span)[span_6](start_span)[span_6](end_span)</div>
-                <div class="menu-btn" onclick="alert('قسم الألعاب التفاعلية واختبار المعرفة (اللعب وتعلم)')">العِب وتعلّم (Gamification)[span_7](start_span)[span_7](end_span)</div>
-                <div class="menu-btn" onclick="alert('المستوى المتقدم الاحترافي C1/C2 - مهارات تحدث متقدمة')">المستوى المتقدم (C1/C2)</div>
+        <!-- 2. القائمة الرئيسية للدورة -->
+        <div id="screen-main" class="screen">
+            <h2 class="header-title">أقسام الدورة الشاملة (من A1 إلى الاحتراف)</h2>
+            <div class="menu-grid">
+                <div class="menu-card" onclick="changeScreen('screen-alphabet')">الأحرف الأبجدية ونطقها 🔤</div>
+                <div class="menu-card" onclick="changeScreen('screen-vowels')">حروف العلة وتركيب الأصوات 🔊</div>
+                <div class="menu-card" onclick="changeScreen('screen-grammar')">فهرس القواعد الأساسية 📚</div>
+                <div class="menu-card" onclick="changeScreen('screen-game')">العِب وتعلّم (16 مرحلة تفاعلية) 🎮</div>
+                <div class="menu-card" onclick="openModal('تقنية الشادونق (Shadowing)', 'تقنية تقليد المتحدث الأصلي حرفياً لتحسين طلاقة اللسان وكسر حاجز الخوف في التحدث بالإنجليزية.')">تقنية الشادونق 🎧</div>
+                <div class="menu-card" onclick="openModal('قصص قصيرة تفاعلية', 'قراءة قصص مبسطة مع الترجمة والصوت لفهم سياق الجمل واستخدام المفردات بشكل صحيح.')">قصص قصيرة 📖</div>
             </div>
         </div>
 
-        <!-- 3. شاشة حروف العلة -->
-        <div id="screen-vowels" class="section-view">
+        <!-- 3. شاشة الأحرف الأبجدية -->
+        <div id="screen-alphabet" class="screen">
+            <h2 class="header-title">الأحرف الأبجدية - English Alphabet</h2>
+            <div class="content-grid" style="grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));">
+                <div class="content-item" style="justify-content: center;" onclick="speakText('A a')"><span>Aa 🔊</span></div>
+                <div class="content-item" style="justify-content: center;" onclick="speakText('B b')"><span>Bb 🔊</span></div>
+                <div class="content-item" style="justify-content: center;" onclick="speakText('C c')"><span>Cc 🔊</span></div>
+                <div class="content-item" style="justify-content: center;" onclick="speakText('D d')"><span>Dd 🔊</span></div>
+                <div class="content-item" style="justify-content: center;" onclick="speakText('E e')"><span>Ee 🔊</span></div>
+                <div class="content-item" style="justify-content: center;" onclick="speakText('F f')"><span>Ff 🔊</span></div>
+                <div class="content-item" style="justify-content: center;" onclick="speakText('G g')"><span>Gg 🔊</span></div>
+                <div class="content-item" style="justify-content: center;" onclick="speakText('H h')"><span>Hh 🔊</span></div>
+            </div>
+            <button class="btn-main" onclick="changeScreen('screen-main')" style="margin-top: 15px;">العودة للرئيسية</button>
+        </div>
+
+        <!-- 4. شاشة حروف العلة -->
+        <div id="screen-vowels" class="screen">
             <h2 class="header-title">حروف العلة Vowels</h2>
-            <div class="grid-menu">
-                <div class="card-item" onclick="playSound('A Short')">
-                    <div class="card-text">قطة cAt <br><small>في الحال القصير</small>[span_8](start_span)[span_8](end_span)</div>
-                    <div class="audio-icon">🔊</div>
+            <div class="content-grid">
+                <div class="content-item" onclick="speakText('cat')">
+                    <div><strong>قطة cAt</strong><br><small>في الحال القصير Short A</small></div>
+                    <span>🔊</span>
                 </div>
-                <div class="card-item" onclick="playSound('A Long')">
-                    <div class="card-text">اسم nAme <br><small>في الحال الطويل</small>[span_9](start_span)[span_9](end_span)</div>
-                    <div class="audio-icon">🔊</div>
+                <div class="content-item" onclick="speakText('name')">
+                    <div><strong>اسم nAme</strong><br><small>في الحال الطويل Long A</small></div>
+                    <span>🔊</span>
                 </div>
-                <div class="card-item" onclick="playSound('E Short')">
-                    <div class="card-text">سرير bEd <br><small>في الحال القصير</small>[span_10](start_span)[span_10](end_span)</div>
-                    <div class="audio-icon">🔊</div>
+                <div class="content-item" onclick="speakText('bed')">
+                    <div><strong>سرير bEd</strong><br><small>في الحال القصير Short E</small></div>
+                    <span>🔊</span>
                 </div>
-                <div class="card-item" onclick="playSound('E Long')">
-                    <div class="card-text">هي shE <br><small>في الحال الطويل</small>[span_11](start_span)[span_11](end_span)</div>
-                    <div class="audio-icon">🔊</div>
+                <div class="content-item" onclick="speakText('she')">
+                    <div><strong>هي shE</strong><br><small>في الحال الطويل Long E</small></div>
+                    <span>🔊</span>
                 </div>
-                <div class="card-item" onclick="playSound('O Short')">
-                    <div class="card-text">صندوق bOx <br><small>في الحال القصير</small>[span_12](start_span)[span_12](end_span)</div>
-                    <div class="audio-icon">🔊</div>
+                <div class="content-item" onclick="speakText('box')">
+                    <div><strong>صندوق bOx</strong><br><small>في الحال القصير Short O</small></div>
+                    <span>🔊</span>
                 </div>
-                <div class="card-item" onclick="playSound('O Long')">
-                    <div class="card-text">بيت hOme <br><small>في الحال الطويل</small>[span_13](start_span)[span_13](end_span)</div>
-                    <div class="audio-icon">🔊</div>
+                <div class="content-item" onclick="speakText('home')">
+                    <div><strong>بيت hOme</strong><br><small>في الحال الطويل Long O</small></div>
+                    <span>🔊</span>
                 </div>
             </div>
-            <button class="btn-start" onclick="goToSection('screen-main')" style="margin-top: 20px;">العودة للقائمة الرئيسية</button>
+            <button class="btn-main" onclick="changeScreen('screen-main')" style="margin-top: 15px;">العودة للرئيسية</button>
         </div>
 
-        <!-- 4. شاشة الحروف الأبجدية -->
-        <div id="screen-alphabet" class="section-view">
-            <h2 class="header-title">الاحرف الابجدية - English Alphabet</h2>
-            <div class="grid-menu" style="grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));">
-                <div class="card-item" style="justify-content: center;" onclick="playSound('Aa')"><span class="card-text">Aa 🔊</span></div>
-                <div class="card-item" style="justify-content: center;" onclick="playSound('Bb')"><span class="card-text">Bb 🔊</span></div>
-                <div class="card-item" style="justify-content: center;" onclick="playSound('Cc')"><span class="card-text">Cc 🔊</span></div>
-                <div class="card-item" style="justify-content: center;" onclick="playSound('Dd')"><span class="card-text">Dd 🔊</span></div>
-                <div class="card-item" style="justify-content: center;" onclick="playSound('Ee')"><span class="card-text">Ee 🔊</span></div>
-                <div class="card-item" style="justify-content: center;" onclick="playSound('Ff')"><span class="card-text">Ff 🔊</span></div>
+        <!-- 5. شاشة فهرس القواعد -->
+        <div id="screen-grammar" class="screen">
+            <h2 class="header-title">فهرس القواعد الأساسية 📚</h2>
+            <div class="content-grid">
+                <div class="content-item" onclick="openModal('Basic Sentence Structure (التركيب الأساسي)', 'الجملة في الإنجليزية تبدأ بـ: فاعل + فعل + مفعول به.\nمثال: I play football (أنا ألعَب كرة القدم).')">
+                    <span>التركيب الأساسي للجملة</span><span>➔</span>
+                </div>
+                <div class="content-item" onclick="openModal('The Verb To Be (فعل يكون)', 'يستخدم للوصف والحالة (am, is, are).\nمثال: She is happy (هي سعيدة).')">
+                    <span>فعل يكون (Verb To Be)</span><span>➔</span>
+                </div>
+                <div class="content-item" onclick="openModal('Simple Present (المضارع البسيط)', 'يستخدم للتعبير عن الحقائق والعادات اليومية.\nمثال: They work hard (هم يعملون بجد).')">
+                    <span>زمن المضارع البسيط</span><span>➔</span>
+                </div>
+                <div class="content-item" onclick="openModal('Personal Pronouns (الضمائر الشخصية)', 'هي التي تحل محل الفاعل مثل: I, He, She, It, We, They, You.')">
+                    <span>الضمائر الشخصية</span><span>➔</span>
+                </div>
+                <div class="content-item" onclick="openModal('Articles (أدوات التعريف والتنكير)', 'تستخدم قبل الأسماء مثل: a, an, the.\nمثال: An apple (تفاحة واحدة).')">
+                    <span>أدوات التعريف (Articles)</span><span>➔</span>
+                </div>
+                <div class="content-item" onclick="openModal('Simple Past (الماضي البسيط)', 'يعبر عن حدث وقع وانتهى في الماضي.\nمثال: I went to school (ذهبت إلى المدرسة).')">
+                    <span>زمن الماضي البسيط</span><span>➔</span>
+                </div>
             </div>
-            <button class="btn-start" onclick="goToSection('screen-main')" style="margin-top: 20px;">العودة للقائمة الرئيسية</button>
+            <button class="btn-main" onclick="changeScreen('screen-main')" style="margin-top: 15px;">العودة للرئيسية</button>
         </div>
 
+        <!-- 6. شاشة العب وتعلّم (16 مرحلة) -->
+        <div id="screen-game" class="screen">
+            <h2 class="header-title">العِب وتعلّم - تحدي الـ 16 مرحلة 🎮</h2>
+            <div class="game-grid">
+                <div class="level-box" onclick="openModal('المرحلة 1', 'اختر الإجابة الصحيحة:\nYesterday, I ______ up at 8 a.m.\n\nالخيارات: (woke / had / took)\nالجواب الصحيح: woke')">1</div>
+                <div class="level-box" onclick="openModal('المرحلة 2', 'اختبار مفردات:\nShe is ______ in the kitchen.\n\nالخيارات: (cooking / running / sleeping)\nالجواب الصحيح: cooking')">2</div>
+                <div class="level-box" onclick="openModal('المرحلة 3', 'تحدي القواعد:\nThey ______ football every Friday.\n\nالخيارات: (plays / play / played)\nالجواب الصحيح: play')">3</div>
+                <div class="level-box" onclick="openModal('المرحلة 4', 'المرحلة 4', 'أكمل الجملة المناسبة للضمير الصحيح.')">4</div>
+                <div class="level-box" onclick="openModal('المرحلة 5', 'المرحلة 5', 'تحدي تصريف الأفعال الشاذة.')">5</div>
+                <div class="level-box" onclick="openModal('المرحلة 6', 'المرحلة 6', 'تحدي تكوين الأسئلة بـ Wh- Questions.')">6</div>
+                <div class="level-box" onclick="openModal('المرحلة 7', 'المرحلة 7', 'اختبار حروف الجر للمكان.')">7</div>
+                <div class="level-box" onclick="openModal('المرحلة 8', 'المرحلة 8', 'تحدي تكوين النفي في الماضي.')">8</div>
+                <div class="level-box" onclick="openModal('المرحلة 9', 'المرحلة 9', 'تحدي ترتيب الجملة الإنجليزية.')">9</div>
+                <div class="level-box" onclick="openModal('المرحلة 10', 'المرحلة 10', 'اختبار معاني الكلمات الشائعة.')">10</div>
+                <div class="level-box" onclick="openModal('المرحلة 11', 'المرحلة 11', 'تحدي الاستماع الصوتي.')">11</div>
+                <div class="level-box" onclick="openModal('المرحلة 12', 'المرحلة 12', 'تحدي تكوين الأسئلة المباشرة.')">12</div>
+                <div class="level-box" onclick="openModal('المرحلة 13', 'المرحلة 13', 'تمييز الأسماء المعدودة وغير المعدودة.')">13</div>
+                <div class="level-box" onclick="openModal('المرحلة 14', 'المرحلة 14', 'تحدي استخدام There is / There are.')">14</div>
+                <div class="level-box" onclick="openModal('المرحلة 15', 'المرحلة 15', 'اختبار صياغة الأفعال المستمرة.')">15</div>
+                <div class="level-box" onclick="openModal('المرحلة 16', 'المرحلة 16 - التحدي الأخير', 'اختبار شامل لاجتياز مستوى الاحتراف بنجاح!')">16</div>
+            </div>
+            <button class="btn-main" onclick="changeScreen('screen-main')">العودة للرئيسية</button>
+        </div>
+
+    </div>
+
+    <!-- نافذة منبثقة تفاعلية عامة -->
+    <div id="custom-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">إغلاق ✕</button>
+            <h3 id="modal-title">عنوان</h3>
+            <p id="modal-text" style="white-space: pre-line;">التفاصيل هنا...</p>
+        </div>
     </div>
 
     <!-- شريط التنقل السفلي -->
-    <div class="nav-footer" id="nav-bar" style="display: none;">
-        <button class="nav-btn" onclick="goToSection('screen-main')" title="الرئيسية">🏠</button>
-        <button class="nav-btn" onclick="alert('انتقال سريع بين مستويات الدورة')">➡️</button>
+    <div class="nav-bar" id="nav-footer" style="display: none;">
+        <button class="nav-btn" onclick="changeScreen('screen-main')" title="الرئيسية">🏠</button>
+        <button class="nav-btn" onclick="changeScreen('screen-main')">➡️</button>
     </div>
 
-    <!-- حقوق الملكية وتوثيق المطور مع رابط تيك توك المباشر -->
+    <!-- حقوق الملكية ورابط التيك توك -->
     <footer>
         <p>صنعه وبرمجة نواف عبدالله | Designed & Programmed by Nawaf Abdullah</p>
         <p style="margin-top: 5px;">
@@ -298,18 +433,37 @@
     </footer>
 
     <script>
-        function goToSection(screenId) {
-            document.querySelectorAll('.section-view').forEach(el => el.classList.remove('active'));
-            document.getElementById('screen-welcome').style.display = 'none';
+        function changeScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
 
-            if(screenId !== 'screen-welcome') {
-                document.getElementById('nav-bar').style.display = 'flex';
+            const nav = document.getElementById('nav-footer');
+            if(screenId === 'screen-welcome') {
+                nav.style.display = 'none';
+            } else {
+                nav.style.display = 'flex';
             }
+            window.scrollTo(0, 0);
         }
 
-        function playSound(word) {
-            alert('تشغيل صوت النطق لـ: ' + word);
+        function openModal(title, text) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-text').innerText = text;
+            document.getElementById('custom-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').style.display = 'none';
+        }
+
+        function speakText(txt) {
+            if ('speechSynthesis' in window) {
+                let utterance = new SpeechSynthesisUtterance(txt);
+                utterance.lang = 'en-US';
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('النطق الصوتي غير مدعوم في متصفحك الحالي');
+            }
         }
     </script>
 </body>
