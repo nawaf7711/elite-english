@@ -8,14 +8,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-primary: #0b0f19;
-            --bg-secondary: #131c2e;
-            --accent-gold: #d4af37;
-            --accent-gold-light: #f3e5ab;
+            --bg-primary: #07090e;
+            --bg-secondary: #0f172a;
+            --accent-gold: #e2b714;
+            --accent-gold-light: #f7e9a0;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --card-bg: rgba(19, 28, 46, 0.75);
-            --border-color: rgba(212, 175, 55, 0.2);
+            --card-bg: rgba(15, 23, 42, 0.85);
+            --border-color: rgba(226, 183, 20, 0.3);
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --tiktok-color: #fe2c55;
         }
 
         * {
@@ -41,14 +44,87 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 15% 15%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
-                        radial-gradient(circle at 85% 85%, rgba(30, 58, 138, 0.15) 0%, transparent 50%);
+            background: radial-gradient(circle at 20% 20%, rgba(226, 183, 20, 0.12) 0%, transparent 45%),
+                        radial-gradient(circle at 80% 80%, rgba(15, 23, 42, 0.2) 0%, transparent 50%);
             z-index: -1;
         }
 
+        /* واجهة الترحيب الفخمة الملكية */
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #07090e 0%, #111827 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            animation: fadeOutWelcome 0.8s ease 4.2s forwards;
+            visibility: visible;
+        }
+
+        .welcome-logo {
+            font-size: 4rem;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            animation: pulseLogo 2s infinite ease-in-out;
+        }
+
+        .welcome-title {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .welcome-subtitle {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 650px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .welcome-tiktok-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--tiktok-color);
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 25px rgba(254, 44, 85, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .welcome-tiktok-btn:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes pulseLogo {
+            0% { transform: scale(1); text-shadow: 0 0 20px rgba(226, 183, 20, 0.3); }
+            50% { transform: scale(1.08); text-shadow: 0 0 40px rgba(226, 183, 20, 0.6); }
+            100% { transform: scale(1); text-shadow: 0 0 20px rgba(226, 183, 20, 0.3); }
+        }
+
+        @keyframes fadeOutWelcome {
+            to { opacity: 0; visibility: hidden; }
+        }
+
         header {
-            background: rgba(11, 15, 25, 0.9);
-            backdrop-filter: blur(12px);
+            background: rgba(7, 9, 14, 0.95);
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border-color);
             position: fixed;
             top: 0;
@@ -62,20 +138,39 @@
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 900;
             color: var(--accent-gold);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .logo i {
-            font-size: 1.8rem;
+            font-size: 1.9rem;
+        }
+
+        .header-tiktok {
+            background: rgba(254, 44, 85, 0.1);
+            border: 1px solid var(--tiktok-color);
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+
+        .header-tiktok:hover {
+            background: var(--tiktok-color);
         }
 
         main {
-            margin-top: 100px;
+            margin-top: 120px;
             flex: 1;
             padding: 40px 5%;
             max-width: 1400px;
@@ -86,11 +181,11 @@
 
         .hero-section {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
         }
 
         .hero-section h1 {
-            font-size: 2.8rem;
+            font-size: 3rem;
             font-weight: 900;
             margin-bottom: 15px;
             background: linear-gradient(135deg, #fff 0%, var(--accent-gold-light) 100%);
@@ -100,76 +195,61 @@
 
         .hero-section p {
             color: var(--text-muted);
-            font-size: 1.2rem;
-            max-width: 700px;
+            font-size: 1.25rem;
+            max-width: 750px;
             margin: 0 auto;
         }
 
         .levels-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 50px;
+            gap: 30px;
+            margin-bottom: 60px;
         }
 
         .level-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 30px;
+            border-radius: 24px;
+            padding: 35px 25px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-
-        .level-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            backdrop-filter: blur(12px);
         }
 
         .level-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-10px);
             border-color: var(--accent-gold);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(212, 175, 55, 0.2);
-        }
-
-        .level-card:hover::after {
-            opacity: 1;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(226, 183, 20, 0.25);
         }
 
         .level-icon {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--accent-gold);
             margin-bottom: 20px;
         }
 
         .level-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
             color: #fff;
         }
 
         .level-card p {
             color: var(--text-muted);
             font-size: 0.95rem;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            line-height: 1.5;
         }
 
         .level-btn {
             background: transparent;
             border: 2px solid var(--accent-gold);
             color: var(--accent-gold);
-            padding: 10px 25px;
+            padding: 12px 28px;
             border-radius: 30px;
             font-weight: 700;
             cursor: pointer;
@@ -181,6 +261,7 @@
             color: var(--bg-primary);
         }
 
+        /* نافذة الدروس والألعاب التفاعلية */
         .lesson-modal {
             display: none;
             position: fixed;
@@ -188,8 +269,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(11, 15, 25, 0.85);
-            backdrop-filter: blur(8px);
+            background: rgba(7, 9, 14, 0.9);
+            backdrop-filter: blur(12px);
             z-index: 2000;
             justify-content: center;
             align-items: center;
@@ -199,30 +280,30 @@
         .modal-content {
             background: var(--bg-secondary);
             border: 1px solid var(--accent-gold);
-            border-radius: 24px;
+            border-radius: 28px;
             width: 100%;
-            max-width: 800px;
+            max-width: 850px;
             max-height: 90vh;
             overflow-y: auto;
             padding: 40px;
             position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-            animation: modalSlide 0.4s ease;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            animation: modalSlide 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         @keyframes modalSlide {
-            from { transform: scale(0.9); opacity: 0; }
+            from { transform: scale(0.85); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
 
         .close-modal {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 25px;
+            left: 25px;
             background: none;
             border: none;
             color: var(--text-muted);
-            font-size: 1.8rem;
+            font-size: 2rem;
             cursor: pointer;
             transition: color 0.3s;
         }
@@ -233,34 +314,85 @@
 
         .modal-title {
             color: var(--accent-gold);
-            font-size: 2rem;
-            margin-bottom: 20px;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
             text-align: center;
+            font-weight: 900;
         }
 
         .lesson-section {
             margin-bottom: 25px;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 20px;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 22px;
+            border-radius: 16px;
             border-right: 4px solid var(--accent-gold);
         }
 
         .lesson-section h4 {
             color: #fff;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .lesson-section p {
             color: var(--text-muted);
-            line-height: 1.6;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .quiz-box {
+            background: rgba(226, 183, 20, 0.04);
+            border: 1px dashed var(--accent-gold);
+            padding: 25px;
+            border-radius: 16px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .quiz-question {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .quiz-btn {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+        }
+
+        .quiz-btn:hover {
+            background: var(--accent-gold);
+            color: var(--bg-primary);
+            box-shadow: 0 0 15px rgba(226, 183, 20, 0.4);
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            font-weight: 700;
+            font-size: 1.1rem;
         }
 
         footer {
-            background: rgba(11, 15, 25, 0.95);
+            background: rgba(7, 9, 14, 0.98);
             border-top: 1px solid var(--border-color);
-            padding: 30px 5%;
+            padding: 35px 5%;
             text-align: center;
             margin-top: auto;
         }
@@ -268,86 +400,112 @@
         footer p {
             color: var(--text-muted);
             font-size: 0.95rem;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
         footer .credits {
             color: var(--accent-gold);
             font-weight: 700;
-            font-size: 1.05rem;
+            font-size: 1.15rem;
             letter-spacing: 0.5px;
         }
 
         @media (max-width: 768px) {
-            .hero-section h1 { font-size: 2rem; }
+            .hero-section h1 { font-size: 2.2rem; }
+            .welcome-title { font-size: 2.2rem; }
             .modal-content { padding: 20px; }
+            .quiz-options { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
+
+    <!-- الواجهة الترحيبية الملكية الفخمة مع زر التيك توك -->
+    <div class="welcome-screen">
+        <div class="welcome-logo"><i class="fa-solid fa-crown"></i></div>
+        <div class="welcome-title">Elite English</div>
+        <p class="welcome-subtitle">منصتك الاحترافية لإتقان الإنجليزية. تابعني على تيك توك للمزيد من الشروحات الحصرية!</p>
+        <a href="https://www.tiktok.com/@_qqbv" target="_blank" class="welcome-tiktok-btn">
+            <i class="fa-brands fa-tiktok"></i> تابعني على تيك توك
+        </a>
+    </div>
 
     <header>
         <div class="logo">
             <i class="fa-solid fa-graduation-cap"></i>
             <span>Elite English</span>
         </div>
-        <div style="color: var(--text-muted); font-size: 0.9rem;">
-            <i class="fa-solid fa-crown" style="color: var(--accent-gold);"></i> منصة تعليمية متكاملة
-        </div>
+        <!-- زر تيك توك في الشريط العلوي للموقع -->
+        <a href="https://www.tiktok.com/@_qqbv" target="_blank" class="header-tiktok">
+            <i class="fa-brands fa-tiktok"></i> TikTok
+        </a>
     </header>
 
     <main>
         <div class="hero-section">
-            <h1>أتقن اللغة الإنجليزية باحترافية</h1>
-            <p>اختر مستواك الدراسي وابدأ رحلة التعلم التفاعلية المصممة خصيصاً لتصل بك إلى الطلاقة الكاملة.</p>
+            <h1>ارتقِ بمستواك اللغوي باحترافية</h1>
+            <p>اختر مستواك الدراسي واستمتع بالدروس التفاعلية، الشروحات العميقة، والتحديات والألغاز الممتعة.</p>
         </div>
 
         <div class="levels-grid">
-            <div class="level-card" onclick="openLesson('المبتدئ (A1)', 'هذا المستوى مخصص للبدايات الكاملة، حيث تتعلم الحروف، أساسيات النطق، التحيات اليومية، وأبسط الكلمات الشائعة.', 'قواعد الكينونة (Verb To Be)، تكوين الجمل البسيطة، الضمائر الشخصية.', 'إتقان أكثر من 300 كلمة شائعة في الحياة اليومية.')">
+            <div class="level-card" onclick="openLesson('المستوى المبتدئ (A1)', 'مخصص للبدايات الكاملة، تعلم الحروف، أساسيات النطق، التحيات، وأبسط الكلمات اليومية.', 'قواعد الكينونة (Verb To Be)، تكوين الجمل البسيطة، والضمائر الشخصية.', 'أكثر من 300 كلمة أساسية.', 'اختر الإجابة الصحيحة: أي من التالي يعتبر ضمير فاعل؟', 'He', 'Apple', 0)">
                 <div class="level-icon"><i class="fa-solid fa-seedling"></i></div>
                 <h3>المستوى المبتدئ (A1)</h3>
                 <p>البداية المثالية لبناء أساس قوي ونطق صحيح.</p>
-                <button class="level-btn">ابدأ التعلم</button>
+                <button class="level-btn">ابدأ التعلم والتحدي</button>
             </div>
 
-            <div class="level-card" onclick="openLesson('ما قبل المتوسط (A2)', 'تطوير القدرة على التواصل في المواقف البسيطة والمألوفة، والتحدث عن الروتين اليومي والماضي البسيط.', 'الأزمنة البسيطة (المضارع والماضي)، تكوين الأسئلة، الصفات والمقارنات.', 'توسيع حصيلتك اللغوية لتجاوز 600 كلمة متقدمة.')">
+            <div class="level-card" onclick="openLesson('ما قبل المتوسط (A2)', 'تطوير التواصل في المواقف المألوفة، التحدث عن الروتين اليومي والماضي البسيط.', 'الأزمنة البسيطة (المضارع والماضي)، وتكوين الأسئلة.', 'تجاوز 600 كلمة متقدمة.', 'اختر الإجابة الصحيحة: الماضي من فعل Go هو؟', 'Went', 'Gone', 0)">
                 <div class="level-icon"><i class="fa-solid fa-chart-line"></i></div>
                 <h3>ما قبل المتوسط (A2)</h3>
                 <p>توسيع آفاق التواصل اليومي وفهم الجمل المركبة.</p>
-                <button class="level-btn">ابدأ التعلم</button>
+                <button class="level-btn">ابدأ التعلم والتحدي</button>
             </div>
 
-            <div class="level-card" onclick="openLesson('المتوسط (B1)', 'الانتقال إلى مرحلة الاستقلالية في اللغة، والقدرة على التعامل مع معظم المواقف أثناء السفر ووصف التجارب والأحلام.', 'المضارع التام، الماضي المستمر، الأفعال الناقصة (Modals).', 'مفردات متقدمة للتعبير عن الرأي والمناقشة.')">
+            <div class="level-card" onclick="openLesson('المتوسط (B1)', 'الانتقال للاستقلالية، التعامل مع المواقف أثناء السفر ووصف التجارب والأحلام.', 'المضارع التام، الماضي المستمر، والأفعال الناقصة.', 'مفردات متقدمة للمناقشة وإبداء الرأي.', 'اختر الإجابة الصحيحة: ما هو الماضي التام من Use؟', 'Have used', 'Had used', 1)">
                 <div class="level-icon"><i class="fa-solid fa-fire"></i></div>
                 <h3>المستوى المتوسط (B1)</h3>
                 <p>ابدأ التحدث بطلاقة والتعبير عن أفكارك براحة تامة.</p>
-                <button class="level-btn">ابدأ التعلم</button>
+                <button class="level-btn">ابدأ التعلم والتحدي</button>
             </div>
 
-            <div class="level-card" onclick="openLesson('فوق المتوسط (B2)', 'الطلاقة الحقيقية والتفاعل بعفوية مع المتحدثين الأصليين دون جهد، وفهم النصوص المعقدة والمقالات التقنية.', 'المبني للجهول، الجمل الشرطية المتقدمة، الكلام المنقول.', 'أكثر من 1500 مفردة احترافية واصطلاحات لغوية (Idioms).')">
+            <div class="level-card" onclick="openLesson('فوق المتوسط (B2)', 'الطلاقة الحقيقية والتفاعل بعفوية مع المتحدثين الأصليين، وفهم النصوص المعقدة.', 'المبني للجهول، الجمل الشرطية المتقدمة، والكلام المنقول.', 'أكثر من 1500 مفردة احترافية واصطلاحات (Idioms).', 'اختر الإجابة الصحيحة: مرادف كلمة Clever هو؟', 'Smart', 'Slow', 0)">
                 <div class="level-icon"><i class="fa-solid fa-gem"></i></div>
                 <h3>فوق المتوسط (B2)</h3>
                 <p>مستوى الطلاقة والتفاعل الاحترافي الكامل.</p>
-                <button class="level-btn">ابدأ التعلم</button>
+                <button class="level-btn">ابدأ التعلم والتحدي</button>
             </div>
         </div>
     </main>
 
+    <!-- نافذة العرض التفاعلية للدروس والألعاب -->
     <div id="lessonModal" class="lesson-modal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeLesson()">&times;</button>
             <h2 id="modalTitle" class="modal-title"></h2>
+            
             <div class="lesson-section">
-                <h4><i class="fa-solid fa-book-open"></i> نظرة عامة على المستوى:</h4>
+                <h4><i class="fa-solid fa-book-open"></i> نظرة عامة:</h4>
                 <p id="modalDesc"></p>
             </div>
+            
             <div class="lesson-section">
                 <h4><i class="fa-solid fa-puzzle-piece"></i> القواعد الأساسية:</h4>
                 <p id="modalGrammar"></p>
             </div>
+            
             <div class="lesson-section">
-                <h4><i class="fa-solid fa-bullseye"></i> الحصيلة اللغوية والهدف:</h4>
+                <h4><i class="fa-solid fa-bullseye"></i> الحصيلة والهدف:</h4>
                 <p id="modalVocab"></p>
+            </div>
+
+            <div class="quiz-box">
+                <div class="quiz-question" id="quizQuestion"></div>
+                <div class="quiz-options">
+                    <button class="quiz-btn" id="opt0" onclick="checkAnswer(0)"></button>
+                    <button class="quiz-btn" id="opt1" onclick="checkAnswer(1)"></button>
+                </div>
+                <div class="quiz-result" id="quizResult"></div>
             </div>
         </div>
     </div>
@@ -358,12 +516,32 @@
     </footer>
 
     <script>
-        function openLesson(title, desc, grammar, vocab) {
+        let correctOptIndex = 0;
+
+        function openLesson(title, desc, grammar, vocab, qText, optA, optB, correctIdx) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalDesc').innerText = desc;
             document.getElementById('modalGrammar').innerText = grammar;
             document.getElementById('modalVocab').innerText = vocab;
+            
+            document.getElementById('quizQuestion').innerText = qText;
+            document.getElementById('opt0').innerText = optA;
+            document.getElementById('opt1').innerText = optB;
+            document.getElementById('quizResult').innerText = "";
+            correctOptIndex = correctIdx;
+
             document.getElementById('lessonModal').style.display = 'flex';
+        }
+
+        function checkAnswer(selectedIdx) {
+            let resultDiv = document.getElementById('quizResult');
+            if (selectedIdx === correctOptIndex) {
+                resultDiv.style.color = "var(--success-color)";
+                resultDiv.innerText = "🎉 إجابة صحيحة! أبدعت يا بطل.";
+            } else {
+                resultDiv.style.color = "var(--error-color)";
+                resultDiv.innerText = "❌ إجابة خاطئة، حاول مرة أخرى!";
+            }
         }
 
         function closeLesson() {
